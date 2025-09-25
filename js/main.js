@@ -190,7 +190,7 @@
 					  {
 					    number: num,
 					    numberStep: comma_separator_number_step
-					  }, 2500
+					  }, 3500
 					);
 				});
 				
