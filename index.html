@@ -702,13 +702,95 @@
 			<div class="col-md-12 text-center">
   
 			  			  	<div id="t"></div><script>setInterval(()=>document.getElementById("t").innerText=new Date().toLocaleTimeString('en-US'),1000);</script>
-				    <div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:11px">
+					<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <style>
+
+    .digit {
+      display: inline-block;
+      background-color: lab(19.96% 0.44 0.15);
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      width: 14px;
+      margin: 2px;
+      padding: 2px 0;
+      border-radius: 10px;
+      /* box-shadow: 0 0 5px #666; */
+      text-align:center;
+    }
+
+    /*.label {*/
+    /*  font-size: 12px;*/
+    /*  margin-bottom: 2px;*/
+    /*}*/
+  </style>
+</head>
+<body>
+
+  <div class="counter-wrapper">
+    <div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:12px">
+    <div class="label">VISIT COUNTER:</div>
+    <div id="counter"></div>
+      </div>
+  </div>
+
+  <script>
+    // ✅ Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyARVaXCUCDOAfkspoM_w9hN0vQwO4EmUJM",
+      authDomain: "visitor-counter-cc65b.firebaseapp.com",
+      databaseURL: "https://visitor-counter-cc65b-default-rtdb.firebaseio.com",  // 🔧 fixed
+      projectId: "visitor-counter-cc65b",
+      storageBucket: "visitor-counter-cc65b.appspot.com",
+      messagingSenderId: "45419411023",
+      appId: "1:45419411023:web:bd21fc4995364d8d119c3a"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const counterRef = db.ref("visitCount");
+
+    // Increment count on each visit
+    counterRef.transaction(current => {
+      return (current || 0) + 1;
+    });
+	if (!localStorage.getItem("visited")) {
+  counterRef.transaction(current => {
+    return (current || 0) + 1;
+  });
+  localStorage.setItem("visited", "true");
+}
+
+
+    // Function to display counter with leading zeros
+    function updateCounterDisplay(count) {
+      const digits = count.toString().padStart(8, '0'); // Always 8 digits
+      const counterDiv = document.getElementById('counter');
+      counterDiv.innerHTML = ''; // Clear old digits
+
+      for (let digit of digits) {
+        const span = document.createElement('span');
+        span.className = 'digit';
+        span.textContent = digit;
+        counterDiv.appendChild(span);
+      }
+    }
+
+    // Listen to changes in counter
+    counterRef.on('value', snapshot => {
+      const count = snapshot.val() || 0;
+      updateCounterDisplay(count);
+    });
+  </script>
+				    <!-- <div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:11px">
       <span>VISIT COUNTER:</span>
       <div id="c">
       </div>
       </div>
       <script>let v=localStorage.getItem('vc')||0;v++;localStorage.setItem('vc',v);let f=String(v).padStart(8,'0');document.getElementById('c').innerHTML=[...f].map(d=>`<span style="background:#1e1e1e;color:#f0f0f0;padding:2px 2px;border-radius:10px;font-size:12px;min-width:22px;text-align:center;font-family:'Courier New',monospace;box-shadow:inset 0 -2px 5px rgba(0,0,0,0.6),inset 0 2px 5px rgba(255,255,255,0.1),1px 1px 2px rgba(0,0,0,0.5)">${d}</span>`).join('');
-  </script>
+  </script> -->
 				<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 	Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://www.linkedin.com/in/ranjeet-ranjay-kumar-raut/" target="_blank">Ranjeet Kumar Raut</a>
 	<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
