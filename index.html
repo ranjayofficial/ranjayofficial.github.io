@@ -702,7 +702,64 @@
 			<div class="col-md-12 text-center">
   
 			  			  	<div id="t"></div><script>setInterval(()=>document.getElementById("t").innerText=new Date().toLocaleTimeString('en-US'),1000);</script>
-				  <div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:11px">
+				<div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:11px">
+  <span>VISIT COUNTER:</span>
+  <div id="c"></div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+  import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyApeHzeXmwOMu1liD9ME8nsTP-evDLoDL8",
+    authDomain: "visit-count-1b97f.firebaseapp.com",
+    projectId: "visit-count-1b97f",
+    storageBucket: "visit-count-1b97f.appspot.com",
+    messagingSenderId: "805557767157",
+    appId: "1:805557767157:web:5c19316f62451ff3916ebc",
+    measurementId: "G-Q7NFMGNED3",
+    databaseURL: "https://visit-count-1b97f-default-rtdb.firebaseio.com"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getDatabase(app);
+  const counterRef = ref(db, 'visitCount');
+
+  // एक session मा एकपटक मात्र बढाउने logic
+  const sessionKey = "visited_in_session";
+
+  if (!sessionStorage.getItem(sessionKey)) {
+    runTransaction(counterRef, (current) => (current || 0) + 1)
+      .then(() => sessionStorage.setItem(sessionKey, "true"))
+      .catch(console.error);
+  }
+
+  // count देखाउने function
+  onValue(counterRef, (snapshot) => {
+    const count = snapshot.val() || 0;
+    const formatted = String(count).padStart(8, '0');
+    document.getElementById("c").innerHTML = [...formatted].map(d =>
+      `<span style="
+        background:#1e1e1e;
+        color:#f0f0f0;
+        padding:2px 2px;
+        border-radius:10px;
+        font-size:12px;
+        min-width:22px;
+        text-align:center;
+        font-family:'Courier New', monospace;
+        box-shadow:
+          inset 0 -2px 5px rgba(0,0,0,0.6),
+          inset 0 2px 5px rgba(255,255,255,0.1),
+          1px 1px 2px rgba(0,0,0,0.5);
+      ">${d}</span>`
+    ).join('');
+  });
+</script>
+				  <!-- <div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:11px">
     <span>VISIT COUNTER:</span>
     <div id="c"></div>
   </div>
@@ -744,7 +801,7 @@
         `<span style="background:#1e1e1e;color:#f0f0f0;padding:2px 2px;border-radius:10px;font-size:12px;min-width:22px;text-align:center;font-family:'Courier New',monospace;box-shadow:inset 0 -2px 5px rgba(0,0,0,0.6),inset 0 2px 5px rgba(255,255,255,0.1),1px 1px 2px rgba(0,0,0,0.5)">${d}</span>`
       ).join('');
     });
-  </script>
+  </script> -->
 				    <!-- <div style="display:inline-flex;align-items:center;gap:5px;font-weight:bold;font-size:11px">
       <span>VISIT COUNTER:</span>
       <div id="c">
