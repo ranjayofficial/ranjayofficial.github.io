@@ -109,6 +109,18 @@
   transform: scale(1.1);
 }
 
+	/*** CHANGE गरिएको ठाउँ ***/
+      .experience-toggle {
+        cursor: pointer;
+        color: #ffbd39;
+        margin-bottom: 10px;
+      }
+
+      .experience-content {
+        margin-top: 15px;
+        transition: all 0.3s ease;
+      }
+      /*** CHANGE समाप्त ***/
 
 </style>
 <meta name="google-adsense-account" content="ca-pub-9559420319378932">
@@ -357,11 +369,31 @@
 		</div>
 		<br>
 		<div class="row">
+			<div class="col-md-6">
+				<div class="resume-wrap ftco-animate">
+                <span class="date">June 2025-Dec 2025</span>
+                <h2 class="experience-toggle">Electrical Engineer (AGL Engineer)</h2>
+                <span class="position">AVIC-KDN CCECC JV, Tribhuvan International Airport</span>
+				<div class="experience-content" style="display: none;">
+                <p class="mt-4">AVIC KDN CCECC refers to a Joint Venture (JV) between Chinese firms AVIC-KDN Airport Engineering Co. Ltd. and China Civil Engineering Construction Corporation (CCECC), working on major infrastructure projects at Nepal's Tribhuvan International Airport (TIA), including hangar development and taxiway/apron upgrades for enhanced capacity. They are key contractors in the large ADB-funded SASEC Airport Capacity Enhancement Project, bringing expertise in airport construction to improve TIA's facilities and operational safety.
+                <ul>
+                    <li>Prepare the detailed construction proposal, plans for executing the work in accordance with project specifications, aviation regulation standard ICAO, FAA and design drawings.</li>
+                    <li>Regularly communicate with clients and consultants to clarify design intent, resolve technical issues, and ensure compliance with project specifications, address concerns and obtain necessary approvals.</li>
+                    <li>Prepare and keep detailed records of all project activities, including daily progress report, minutes of meeting, inspection reports, and test results.</li>
+                    <li>Maintain records of all materials used in the project, including quantities, suppliers, and test certificates.</li>
+                    <li>Coordinate with suppliers on technical specifications, ensuring that all equipment meets the project requirements and complies with relevant standards.</li>
+                    <li>Diagnose and troubleshoot on site problems related to electrical systems, equipment installation and construction procedures. Develop and implement solutions to overcome challenges and maintain project schedule.</li>
+                </ul>
+				</p>
+            </div>
+        </div>
+    </div>
 				<div class="col-md-6">
 					<div class="resume-wrap ftco-animate">
 						<span class="date">Mar 2024 - Jan 2025</span>
-						<h2>Electrical Project Engineer</h2>
+						<h2 class="experience-toggle">Electrical Project Engineer</h2>
 						<span class="position">Powerchina Sepco1 Electric Power Construction Co.,Ltd.</span>
+						<div class="experience-content" style="display: none;">
 						<p class="mt-4">SEPCO1 Electric Power Construction Corporation, is a leading enterprise of Power Construction Corporation of China, listed in the Fortune Global 500.
 							<ul>
 								<li>Project Planning, Monitoring, Supervision and Execution of overall work for Transmission Line as per Design Drawing/Shop Drawing.</li>
@@ -374,11 +406,13 @@
 						</p>
 					</div>
 				</div>
+				</div>
 				<div class="col-md-6">
 					<div class="resume-wrap ftco-animate">
 						<span class="date">Aug 2022 - Aug 2023</span>
-						<h2>Project Coordinator</h2>
+						<h2 class="experience-toggle">Project Coordinator</h2>
 						<span class="position">Thunderbolt for Trading & Contracting LLC</span>
+						<div class="experience-content" style="display: none;">
 						<p class="mt-4"> 
 							<ul>
 								<li>Operational Management: Monitor and Manage the day-to-day operation of the AMI System, ensuring it's realibility and accuracy.</li>
@@ -391,11 +425,13 @@
 						</p>
 					</div>
 				</div>
+				</div>
 				<div class="col-md-6">
 					<div class="resume-wrap ftco-animate">
 						<span class="date">Jan 2021 - Jan 2022</span>
-						<h2>Junior Project Coordinator</h2>
+						<h2 class="experience-toggle">Junior Project Coordinator</h2>
 						<span class="position">Grid Nepal Design Associates Pvt.Ltd.</span>
+						<div class="experience-content" style="display: none;">
 						<!-- <p class="mt-4">SEPCO1 Electric Power Construction Corporation, founded in 1952, is a leading enterprise of Power Construction Corporation of China, listed in the Fortune Global 500.  -->
 							<ul>
 								<li>To coordinate with site supervisors and take daily work update from them and make DPR of that work and shares that information to the project engineer.</li>
@@ -408,11 +444,13 @@
 						</p>
 					</div>
 				</div>
+				</div>
 				<div class="col-md-6">
 					<div class="resume-wrap ftco-animate">
 						<span class="date">Nov 2021 - Nov 2021</span>
-						<h2>Census Enumerator</h2>
+						<h2 class="experience-toggle">Census Enumerator</h2>
 						<span class="position">Government of Nepal, Central Bureau of Statistics</span>
+						<div class="experience-content" style="display: none;">
 						<p><span class="title-s">Position: </span> <span>"Participated in short-term (15 days) data collection on a contract basis."</span></p>
 						<!-- <p class="mt-4">SEPCO1 Electric Power Construction Corporation, founded in 1952, is a leading enterprise of Power Construction Corporation of China, listed in the Fortune Global 500.  -->
 							<ul>
@@ -425,6 +463,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		<br>
 		<br>
 
@@ -856,6 +895,19 @@
   <script src="js/scrollax.min.js"></script>
   
   <script src="js/main.js"></script>
+	  <script>
+    document.querySelectorAll('.experience-toggle').forEach(toggle => {
+      toggle.addEventListener('click', function() {
+        const content = this.parentElement.querySelector('.experience-content');
+        if (content.style.display === 'block') {
+          content.style.display = 'none';
+        } else {
+          document.querySelectorAll('.experience-content').forEach(c => c.style.display = 'none');
+          content.style.display = 'block';
+        }
+      });
+    });
+  </script>
     
   </body>
 </html>
